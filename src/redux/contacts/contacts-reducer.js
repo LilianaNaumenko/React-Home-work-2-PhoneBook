@@ -1,41 +1,30 @@
-import { combineReducers } from 'redux'
-import ContactsTypes from './contacts-types'
+import { createReducer, combineReducers } from '@reduxjs/toolkit'
+import actions from './contacts-actions'
 
-const contacts = (state = [], { type, payload }) => {
-    switch (type) {
-        case ContactsTypes.ADD:
-            const formattedName =
-                payload.name.charAt(0).toUpperCase() + payload.name.slice(1)
+const contacts = createReducer([], {
+    [actions.addContacts]: (state, { payload }) => {
+        const formattedName =
+            payload.name.charAt(0).toUpperCase() + payload.name.slice(1)
 
-            if (
-                state.find(
-                    (el) => el.name.toLowerCase() === payload.name.toLowerCase()
-                )
-            ) {
-                return alert(`${formattedName} is already in contacts`)
-            }
+        if (
+            state.find(
+                (el) => el.name.toLowerCase() === payload.name.toLowerCase()
+            )
+        ) {
+            return alert(`${formattedName} is already in contacts`)
+        }
 
-            return [...state, { ...payload, name: formattedName }]
+        return [...state, { ...payload, name: formattedName }]
+    },
+    [actions.deleteContacts]: (state, { payload }) => [
+        ...state.filter((el) => el.id !== payload),
+    ],
+    [actions.storageContacts]: (_, { payload }) => payload,
+})
 
-        case ContactsTypes.DELETE:
-            return [...state.filter((el) => el.id !== payload)]
-
-        case ContactsTypes.LOCAL_STORAGE:
-            return payload
-
-        default:
-            return state
-    }
-}
-
-const filter = (state = '', { type, payload }) => {
-    switch (type) {
-        case ContactsTypes.CHANGE_FILTER:
-            return payload
-        default:
-            return state
-    }
-}
+const filter = createReducer('', {
+    [actions.filterContacts]: (_, { payload }) => payload,
+})
 
 export default combineReducers({
     contacts,
