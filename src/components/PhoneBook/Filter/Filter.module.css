@@ -1,0 +1,10 @@
+.input {
+    margin-left: 5px;
+    background-color: #e699ff;
+    border: none;
+    border-bottom: 1px solid black;
+}
+
+.input:hover .input:focus {
+    background-color: #e699ff;
+}
