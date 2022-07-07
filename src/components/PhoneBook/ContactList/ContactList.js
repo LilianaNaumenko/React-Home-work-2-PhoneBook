@@ -3,7 +3,8 @@ import s from '../ContactList/ContactList.module.css'
 import slideTransition from './slideTransition.module.css'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { connect } from 'react-redux'
-import contactsActions from '../../../redux/contacts/contacts-actions'
+import contactsOperations from '../../../redux/contacts/contacts-operations'
+import { getContacts, filterContacts } from '../../../redux/contacts-selectors'
 
 function ContactList({ filter, contacts, onContactsDelete }) {
     function getFilteredContacts() {
@@ -42,11 +43,11 @@ function ContactList({ filter, contacts, onContactsDelete }) {
 }
 
 const mapStateToProps = (state) => ({
-    contacts: state.contacts,
-    filter: state.filter,
+    contacts: getContacts(state),
+    filter: filterContacts(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    onContactsDelete: (eId) => dispatch(contactsActions.deleteContacts(eId)),
+    onContactsDelete: (id) => dispatch(contactsOperations.deleteContacts(id)),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(ContactList)

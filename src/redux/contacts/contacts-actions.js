@@ -1,38 +1,23 @@
-import { nanoid } from 'nanoid'
 import { createAction } from '@reduxjs/toolkit'
 
-const addContacts = createAction('contacts/add', (name, number) => {
-    return {
-        payload: { name, number, id: nanoid() },
-    }
-})
+const addContactsRequest = createAction('contacts/addContactsRequest')
+const addContactsSuccess = createAction('contacts/addContactSuccess')
+const addContactsError = createAction('contacts/addContactError')
 
-const deleteContacts = createAction('contacts/delete')
+const deleteContactsRequest = createAction('contacts/deleteContactsRequest')
+const deleteContactsSuccess = createAction('contacts/deleteContactsSuccess')
+const deleteContactsError = createAction('contacts/deleteContactsError')
+
 const filterContacts = createAction('contacts/changeFilter')
-const storageContacts = createAction('contacts/storage')
 
-console.log(deleteContacts)
-
-const actions = { addContacts, deleteContacts, filterContacts, storageContacts }
+const actions = {
+    addContactsRequest,
+    addContactsSuccess,
+    addContactsError,
+    deleteContactsRequest,
+    deleteContactsSuccess,
+    deleteContactsError,
+    filterContacts,
+}
 
 export default actions
-
-// const addContacts = (name, number) => ({
-//     type: ContactsTypes.ADD,
-//     payload: { name, number, id: nanoid() },
-// })
-
-// const deleteContacts = (eId) => ({
-//     type: ContactsTypes.DELETE,
-//     payload: eId,
-// })
-
-// const filterContacts = (value) => ({
-//     type: ContactsTypes.CHANGE_FILTER,
-//     payload: value,
-// })
-
-// const storageContacts = (contacts) => ({
-//     type: ContactsTypes.LOCAL_STORAGE,
-//     payload: contacts,
-// })
