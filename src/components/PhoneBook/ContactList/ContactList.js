@@ -13,7 +13,7 @@ function ContactList({ filter, contacts, onContactsDelete }) {
             el.name.toLowerCase().includes(normalize)
         )
 
-        return visibleContacts
+        return visibleContacts || []
     }
 
     const list = filter ? getFilteredContacts() : contacts

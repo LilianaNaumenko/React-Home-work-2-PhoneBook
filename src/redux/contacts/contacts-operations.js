@@ -1,28 +1,40 @@
 import axios from 'axios'
 import actions from './contacts-actions'
 
-axios.defaults.baseURL = 'https://62c154e5eff7f7856f0c51c6.mockapi.io'
+axios.defaults.baseURL = 'https://goit-phonebook-api.herokuapp.com'
 
-const addContacts = (name, number) => (dispatch) => {
+const addContacts = (name, number) => async (dispatch) => {
     const contacts = { name, number }
 
     dispatch(actions.addContactsRequest())
-
-    axios
-        .post('/contacts', contacts)
-        .then(({ data }) => dispatch(actions.addContactsSuccess(data)))
-        .catch((error) => dispatch(actions.addContactsError(error)))
+    try {
+        const response = await axios.post('/contacts', contacts)
+        dispatch(actions.addContactsSuccess(response.data))
+    } catch (error) {
+        dispatch(actions.addContactsError(error.message))
+    }
 }
 
-const deleteContacts = (id) => (dispatch) => {
+const deleteContacts = (id) => async (dispatch) => {
     dispatch(actions.deleteContactsRequest())
-
-    axios
-        .delete(`/contacts/${id}`)
-        .then(({ data }) => dispatch(actions.deleteContactsSuccess(data.id)))
-        .catch((error) => dispatch(actions.deleteContactsError(error)))
+    try {
+        await axios.delete(`/contacts/${id}`)
+        dispatch(actions.deleteContactsSuccess(id))
+    } catch (error) {
+        dispatch(actions.deleteContactsError(error.message))
+    }
 }
 
-const operations = { addContacts, deleteContacts }
+const getContacts = () => async (dispatch) => {
+    dispatch(actions.getContactsRequest())
+    try {
+        const response = await axios.get('/contacts')
+        dispatch(actions.getContactsSuccess(response.data))
+    } catch (error) {
+        dispatch(actions.getContactsError(error.message))
+    }
+}
+
+const operations = { addContacts, deleteContacts, getContacts }
 
 export default operations
