@@ -4,7 +4,7 @@ import slideTransition from './slideTransition.module.css'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { connect } from 'react-redux'
 import contactsOperations from '../../../redux/contacts/contacts-operations'
-import { getContacts, filterContacts } from '../../../redux/contacts-selectors'
+import { getContacts, filterContacts } from '../../../redux/contacts/contacts-selectors'
 
 function ContactList({ filter, contacts, onContactsDelete }) {
     function getFilteredContacts() {

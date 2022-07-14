@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route, NavLink, Switch } from 'react-router-dom'
+import { NavLink, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import s from './App.module.css'
 import ContactsPage from './components/PhoneBook/ContactsPage/ContactsPage'
@@ -9,16 +9,14 @@ import Login from './components/PhoneBook/Login/Login'
 import UserMenu from './components/PhoneBook/UserMenu/UserMenu'
 import authSelectors from './redux/auth/auth-selectors'
 import authOperations from './redux/auth/auth-operations'
-import contactsOperations from './redux/contacts/contacts-operations'
+import PrivateRoute from './components/PhoneBook/PrivateRoute/PrivateRoute'
+import PublicRoute from './components/PhoneBook/PublicRoute/PublicRoute'
 
 class App extends Component {
     async componentDidMount() {
-        const { getCurrentUser, isLoginUser, getContacts } = this.props
-        
+        const { getCurrentUser } = this.props
+
         await getCurrentUser()
-        if (isLoginUser) {
-            await getContacts()
-        }
     }
 
     render() {
@@ -51,29 +49,38 @@ class App extends Component {
                 </header>
                 <main className={s.main}>
                     <Switch>
-                        <Route exact path="/" component={WelcomePage} />
-                        <Route path="/contacts" component={ContactsPage} />
-
-                        {!isLoginUser && (
-                            <>
-                                <Route path="/register" component={Register} />
-                                <Route path="/login" component={Login} />
-                            </>
-                        )}
+                        <PublicRoute
+                            exact
+                            path="/"
+                            restricted
+                            component={WelcomePage}
+                        />
+                        <PrivateRoute
+                            path="/contacts"
+                            component={ContactsPage}
+                        />
+                        <PublicRoute
+                            path="/register"
+                            restricted
+                            component={Register}
+                        />
+                        <PublicRoute
+                            path="/login"
+                            restricted
+                            component={Login}
+                        />
                     </Switch>
                 </main>
             </>
         )
     }
 }
-
 const mapStateToProps = (state) => ({
     isLoginUser: authSelectors.isLoginUser(state),
 })
 
 const mapDispatchToProps = {
     getCurrentUser: authOperations.getCurrentUser,
-    getContacts: contactsOperations.getContacts,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
