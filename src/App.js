@@ -12,6 +12,7 @@ import authOperations from './redux/auth/auth-operations'
 import PrivateRoute from './components/PhoneBook/PrivateRoute/PrivateRoute'
 import PublicRoute from './components/PhoneBook/PublicRoute/PublicRoute'
 import Loader from './components/PhoneBook/Loader/Loader'
+import { Redirect } from 'react-router-dom'
 
 class App extends Component {
     async componentDidMount() {
@@ -93,6 +94,7 @@ class App extends Component {
                             restricted
                             component={Login}
                         />
+                        <Route path="*" render={() => <Redirect to="/" />} />
                     </Switch>
                 </main>
                 <Loader />

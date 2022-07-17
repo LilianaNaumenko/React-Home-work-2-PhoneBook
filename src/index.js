@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 import './index.css'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import App from './App'
@@ -14,9 +14,9 @@ root.render(
     <React.StrictMode>
         <Provider store={store.store}>
             <PersistGate persistor={store.persistor}>
-                <BrowserRouter>
+                <HashRouter>
                     <App />
-                </BrowserRouter>
+                </HashRouter>
             </PersistGate>
         </Provider>
     </React.StrictMode>
