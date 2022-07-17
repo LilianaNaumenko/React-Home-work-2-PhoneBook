@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import s from '../ContactForm/ContactForm.module.css'
 import { connect } from 'react-redux'
 import contactsOperations from '../../../redux/contacts/contacts-operations'
+import { toast } from 'react-toastify'
 
 export class ContactForm extends Component {
     state = {
@@ -25,7 +26,7 @@ export class ContactForm extends Component {
             this.props.onContactsAdd(name, number)
             this.setState({ name: '', number: '' })
         } else {
-            alert('Not all data entered')
+            toast.error('Not all data entered')
         }
     }
 
