@@ -1,0 +1,32 @@
+.mainTitle {
+    text-align: center;
+    margin: 20px 0px 60px 0px;
+}
+
+.text {
+    text-align: center;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.list {
+    display: flex;
+    justify-content: center;
+}
+
+.item {
+    list-style: none;
+}
+
+.item:not(:last-child) {
+    margin-right: 20px;
+}
+
+.link {
+    text-decoration: none;
+    color: yellow;
+}
+.link:hover,
+.link:focus {
+    cursor: pointer;
+}

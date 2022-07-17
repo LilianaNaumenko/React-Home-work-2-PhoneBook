@@ -1,15 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import authOperations from '../../../redux/auth/auth-operations'
-
 import authSelectors from '../../../redux/auth/auth-selectors'
+import s from '../UserMenu/UserMenu.module.css'
 
 function UserMenu({ name, onLogout }) {
     return (
         <div>
             <span>Welcome, {name}</span>
-            <button type="button" onClick={onLogout}>
-                Logout
+            <button className={s.button} type="button" onClick={onLogout}>
+                Logout 🇺🇦
             </button>
         </div>
     )

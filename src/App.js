@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { NavLink, Switch } from 'react-router-dom'
+import { Route, NavLink, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import s from './App.module.css'
 import ContactsPage from './components/PhoneBook/ContactsPage/ContactsPage'
@@ -11,6 +11,7 @@ import authSelectors from './redux/auth/auth-selectors'
 import authOperations from './redux/auth/auth-operations'
 import PrivateRoute from './components/PhoneBook/PrivateRoute/PrivateRoute'
 import PublicRoute from './components/PhoneBook/PublicRoute/PublicRoute'
+import Loader from './components/PhoneBook/Loader/Loader'
 
 class App extends Component {
     async componentDidMount() {
@@ -22,34 +23,57 @@ class App extends Component {
     render() {
         const { isLoginUser } = this.props
         return (
-            <>
+            <div className={s.wrapper}>
                 <header className={s.header}>
-                    <h1 className={s.logoTitle}>PhoneBook </h1>
-                    <img
-                        className={s.image}
-                        width={25}
-                        height={25}
-                        src="https://cdn-icons-png.flaticon.com/512/4841/4841500.png"
-                        alt=""
-                    />
-                    <ul>
-                        <NavLink to="/">Welcome</NavLink>{' '}
+                    <div className={s.containerUserMenu}>
+                        <h1 className={s.logoTitle}>PhoneBook </h1>
+                        <ul className={s.containerUserMenu}>
+                            <NavLink
+                                className={s.navLink}
+                                to="/"
+                                exact
+                                activeClassName={s.activeNavLink}
+                            >
+                                Main
+                            </NavLink>
+                            {isLoginUser && (
+                                <NavLink
+                                    className={s.navLink}
+                                    to="/contacts"
+                                    activeClassName={s.activeNavLink}
+                                >
+                                    Contacts
+                                </NavLink>
+                            )}
+                        </ul>
+                    </div>
+                    <div>
                         {isLoginUser ? (
-                            <>
-                                <NavLink to="/contacts">Contacts</NavLink>
-                                <UserMenu />
-                            </>
+                            <UserMenu />
                         ) : (
                             <>
-                                <NavLink to="/register">Register</NavLink>
-                                <NavLink to="/login">Login</NavLink>{' '}
+                                {' '}
+                                <NavLink
+                                    className={s.navLink}
+                                    to="/register"
+                                    activeClassName={s.activeNavLink}
+                                >
+                                    Register
+                                </NavLink>
+                                <NavLink
+                                    className={s.navLink}
+                                    to="/login"
+                                    activeClassName={s.activeNavLink}
+                                >
+                                    Login
+                                </NavLink>{' '}
                             </>
                         )}
-                    </ul>
+                    </div>
                 </header>
-                <main className={s.main}>
+                <main>
                     <Switch>
-                        <PublicRoute
+                        <Route
                             exact
                             path="/"
                             restricted
@@ -71,7 +95,8 @@ class App extends Component {
                         />
                     </Switch>
                 </main>
-            </>
+                <Loader />
+            </div>
         )
     }
 }

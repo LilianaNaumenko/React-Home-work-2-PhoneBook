@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import authOperation from '../../../redux/auth/auth-operations'
+import s from '../Login/Login.module.css'
 
 export class Login extends Component {
     state = {
@@ -23,26 +24,34 @@ export class Login extends Component {
     render() {
         const { email, password } = this.state
         return (
-            <form onSubmit={this.handleSubmit}>
-                <label>
+            <form
+                autocomplete="off"
+                className={s.form}
+                onSubmit={this.handleSubmit}
+            >
+                <label className={s.label}>
                     Email
                     <input
+                        className={s.input}
                         name="email"
                         type="email"
                         value={email}
                         onChange={this.handleChange}
                     />
                 </label>
-                <label>
+                <label className={s.label}>
                     Password
                     <input
+                        className={s.input}
                         name="password"
                         type="password"
                         value={password}
                         onChange={this.handleChange}
                     />
                 </label>
-                <button type="submit">Enter</button>
+                <button className={s.button} type="submit">
+                    Log In
+                </button>
             </form>
         )
     }

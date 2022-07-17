@@ -4,7 +4,7 @@ import slideTransition from './slideTransition.module.css'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { connect } from 'react-redux'
 import contactsOperations from '../../../redux/contacts/contacts-operations'
-import { getContacts, filterContacts } from '../../../redux/contacts/contacts-selectors'
+import contactsSelectors from '../../../redux/contacts/contacts-selectors'
 
 function ContactList({ filter, contacts, onContactsDelete }) {
     function getFilteredContacts() {
@@ -19,14 +19,14 @@ function ContactList({ filter, contacts, onContactsDelete }) {
     const list = filter ? getFilteredContacts() : contacts
     return (
         <div>
-            <TransitionGroup component="ul">
+            <TransitionGroup className={s.list} component="ul">
                 {list.map(({ id, name, number }) => (
                     <CSSTransition
                         key={id}
                         timeout={250}
                         classNames={slideTransition}
                     >
-                        <li className={s.list}>
+                        <li className={s.listItems}>
                             {`${name}: ${number}`}
                             <button
                                 className={s.button}
@@ -43,8 +43,8 @@ function ContactList({ filter, contacts, onContactsDelete }) {
 }
 
 const mapStateToProps = (state) => ({
-    contacts: getContacts(state),
-    filter: filterContacts(state),
+    contacts: contactsSelectors.getContacts(state),
+    filter: contactsSelectors.filterContacts(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({

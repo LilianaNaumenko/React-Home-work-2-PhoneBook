@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import authOperations from '../../../redux/auth/auth-operations'
+import s from '../Register/Register.module.css'
 
 export class Register extends Component {
     state = {
@@ -25,34 +26,43 @@ export class Register extends Component {
         const { name, email, password } = this.state
         return (
             <>
-                <form onSubmit={this.handleSubmit}>
-                    <label>
+                <form
+                    autoComplete="off"
+                    className={s.form}
+                    onSubmit={this.handleSubmit}
+                >
+                    <label className={s.label}>
                         Name
                         <input
+                            className={s.input}
                             value={name}
                             name="name"
                             onChange={this.handleChange}
                         />
                     </label>
-                    <label>
+                    <label className={s.label}>
                         Email
                         <input
+                            className={s.input}
                             value={email}
                             name="email"
                             type="email"
                             onChange={this.handleChange}
                         />
                     </label>
-                    <label>
+                    <label className={s.label}>
                         Password
                         <input
+                            className={s.input}
                             value={password}
                             name="password"
                             type="password"
                             onChange={this.handleChange}
                         />
                     </label>
-                    <button type="submit">Register</button>
+                    <button className={s.button} type="submit">
+                        Register
+                    </button>
                 </form>
             </>
         )

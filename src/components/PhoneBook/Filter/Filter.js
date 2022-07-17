@@ -2,13 +2,14 @@ import React from 'react'
 import s from '../Filter/Filter.module.css'
 import { connect } from 'react-redux'
 import contactsActions from '../../../redux/contacts/contacts-actions'
-import { filterContacts } from '../../../redux/contacts/contacts-selectors'
+import contactsSelectors from '../../../redux/contacts/contacts-selectors'
 
 function Filter({ value, onFindContacts }) {
     return (
-        <div>
+        <div className={s.container}>
             <p>Find contacts by name</p>
             <input
+                autocomplete="off"
                 className={s.input}
                 type="text"
                 value={value}
@@ -23,7 +24,7 @@ function Filter({ value, onFindContacts }) {
 }
 
 const mapStateToProps = (state) => ({
-    value: filterContacts(state),
+    value: contactsSelectors.filterContacts(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -5,6 +5,8 @@ import ContactList from '../ContactList/ContactList'
 import Filter from '../Filter/Filter'
 import contactsOperations from '../../../redux/contacts/contacts-operations'
 import authSelectors from '../../../redux/auth/auth-selectors'
+import contactsSelectors from '../../../redux/contacts/contacts-selectors'
+import s from '../ContactsPage/ContactsPage.module.css'
 
 export class ContactsPage extends Component {
     async componentDidMount() {
@@ -14,11 +16,13 @@ export class ContactsPage extends Component {
         }
     }
     render() {
+        const { isContacts } = this.props
         return (
             <>
                 <ContactForm />
-                <h2>Contacts</h2>
-                <Filter />
+                {isContacts.length > 0 && <h2 className={s.title}>Contacts</h2>}
+                {isContacts.length >= 2 && <Filter />}
+
                 <ContactList />
             </>
         )
@@ -27,6 +31,7 @@ export class ContactsPage extends Component {
 
 const mapStateToProps = (state) => ({
     isLoginUser: authSelectors.isLoginUser(state),
+    isContacts: contactsSelectors.getContacts(state),
 })
 
 const mapDispatchToProps = {

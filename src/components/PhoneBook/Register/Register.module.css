@@ -1,21 +1,24 @@
 .form {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
 
-    padding-top: 30px;
-}
-
-.lable {
-    margin-right: 10px;
+    padding-top: 40px;
 }
 
 .input {
-    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 250px;
+    margin-bottom: 15px;
+    margin-top: 10px;
 
     background-color: #00bfff;
     border: 1px solid Yellow;
     border-radius: 5px;
+
     font-family: 'Comfortaa';
 }
 
@@ -23,21 +26,20 @@
     outline: 1px solid Yellow;
 }
 
-.button {
-    padding: 10px 10px;
+.label {
+    text-align: center;
+}
 
+.button {
+    width: 80px;
+    padding: 15px 15px;
+    padding-left: 12px;
     border-radius: 10px;
     border: 1px solid Yellow;
     background-color: Yellow;
     font-family: 'Comfortaa';
 }
+
 .button:hover {
     cursor: pointer;
-}
-
-.title {
-    margin: 0;
-    margin-top: 10px;
-    font-size: 16px;
-    text-align: center;
 }

@@ -1,0 +1,12 @@
+.button {
+    padding: 3px 5px;
+    border-radius: 4px;
+    border: 1px solid yellow;
+    background-color: yellow;
+    margin-left: 10px;
+    font-family: 'Comfortaa';
+}
+
+.button:hover {
+    cursor: pointer;
+}
