@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/React-Home-work-2-PhoneBook/static/css/main.6bffe673.css",
-    "main.js": "/React-Home-work-2-PhoneBook/static/js/main.af137937.js",
+    "main.js": "/React-Home-work-2-PhoneBook/static/js/main.39d421d0.js",
     "static/js/787.5709bc61.chunk.js": "/React-Home-work-2-PhoneBook/static/js/787.5709bc61.chunk.js",
     "index.html": "/React-Home-work-2-PhoneBook/index.html",
     "main.6bffe673.css.map": "/React-Home-work-2-PhoneBook/static/css/main.6bffe673.css.map",
-    "main.af137937.js.map": "/React-Home-work-2-PhoneBook/static/js/main.af137937.js.map",
+    "main.39d421d0.js.map": "/React-Home-work-2-PhoneBook/static/js/main.39d421d0.js.map",
     "787.5709bc61.chunk.js.map": "/React-Home-work-2-PhoneBook/static/js/787.5709bc61.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6bffe673.css",
-    "static/js/main.af137937.js"
+    "static/js/main.39d421d0.js"
   ]
 }
