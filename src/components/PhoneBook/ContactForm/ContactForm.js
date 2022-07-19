@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import s from '../ContactForm/ContactForm.module.css'
 import contactsOperations from '../../../redux/contacts/contacts-operations'
+import contactsSelectors from '../../../redux/contacts/contacts-selectors'
 import { toast } from 'react-toastify'
 
 export default function ContactForm() {
     const [name, setName] = useState('')
     const [number, setNumber] = useState('')
+
+    const contacts = useSelector(contactsSelectors.getContacts)
 
     const dispatch = useDispatch()
     const onContactsAdd = () =>
@@ -25,6 +28,13 @@ export default function ContactForm() {
     }
     const onButtonClick = (e) => {
         e.preventDefault()
+
+        if (
+            contacts.find((el) => el.name.toLowerCase() === name.toLowerCase())
+        ) {
+            const formattedName = name.charAt(0).toUpperCase() + name.slice(1)
+            return toast.error(`${formattedName} is already in contacts`)
+        }
 
         if (name && number) {
             onContactsAdd()

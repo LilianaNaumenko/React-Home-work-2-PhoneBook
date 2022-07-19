@@ -1,6 +1,5 @@
 import { createReducer, combineReducers } from '@reduxjs/toolkit'
 import actions from './contacts-actions'
-import { toast } from 'react-toastify'
 
 const {
     addContactsRequest,
@@ -18,14 +17,6 @@ const contacts = createReducer([], {
     [addContactsSuccess]: (state, { payload }) => {
         const formattedName =
             payload.name.charAt(0).toUpperCase() + payload.name.slice(1)
-
-        if (
-            state.find(
-                (el) => el.name.toLowerCase() === payload.name.toLowerCase()
-            )
-        ) {
-            return toast.error(`${formattedName} is already in contacts`)
-        }
 
         return [...state, { ...payload, name: formattedName }]
     },
