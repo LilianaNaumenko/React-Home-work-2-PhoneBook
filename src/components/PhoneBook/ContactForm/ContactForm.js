@@ -9,7 +9,7 @@ export default function ContactForm() {
     const [number, setNumber] = useState('')
 
     const dispatch = useDispatch()
-    const onContactsAdd = (name, number) =>
+    const onContactsAdd = () =>
         dispatch(contactsOperations.addContacts(name, number))
 
     const onNameChange = (e) => {

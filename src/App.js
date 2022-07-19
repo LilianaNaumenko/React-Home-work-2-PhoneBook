@@ -18,7 +18,7 @@ export default function App() {
     const isLoginUser = useSelector(authSelectors.isLoginUser)
 
     useEffect(() => {
-        dispatch(authOperations.getCurrentUser)
+        dispatch(authOperations.getCurrentUser())
     }, [dispatch])
 
     return (
