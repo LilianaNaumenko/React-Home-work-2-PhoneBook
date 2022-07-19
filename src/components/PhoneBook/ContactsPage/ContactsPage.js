@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { useEffect, useCallback } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import ContactForm from '../ContactForm/ContactForm'
 import ContactList from '../ContactList/ContactList'
 import Filter from '../Filter/Filter'
@@ -8,34 +8,29 @@ import authSelectors from '../../../redux/auth/auth-selectors'
 import contactsSelectors from '../../../redux/contacts/contacts-selectors'
 import s from '../ContactsPage/ContactsPage.module.css'
 
-export class ContactsPage extends Component {
-    async componentDidMount() {
-        const { isLoginUser, getContacts } = this.props
+export default function ContactsPage() {
+    const dispatch = useDispatch()
+    const isLoginUser = useSelector(authSelectors.isLoginUser)
+    const isContacts = useSelector(contactsSelectors.getContacts)
+
+    const getContacts = useCallback(
+        () => dispatch(contactsOperations.getContacts()),
+        [dispatch]
+    )
+
+    useEffect(() => {
         if (isLoginUser) {
-            await getContacts()
+            getContacts()
         }
-    }
-    render() {
-        const { isContacts } = this.props
-        return (
-            <>
-                <ContactForm />
-                {isContacts.length > 0 && <h2 className={s.title}>Contacts</h2>}
-                {isContacts.length >= 2 && <Filter />}
+    }, [isLoginUser, getContacts])
 
-                <ContactList />
-            </>
-        )
-    }
+    return (
+        <>
+            <ContactForm />
+            {isContacts.length > 0 && <h2 className={s.title}>Contacts</h2>}
+            {isContacts.length >= 2 && <Filter />}
+
+            <ContactList />
+        </>
+    )
 }
-
-const mapStateToProps = (state) => ({
-    isLoginUser: authSelectors.isLoginUser(state),
-    isContacts: contactsSelectors.getContacts(state),
-})
-
-const mapDispatchToProps = {
-    getContacts: contactsOperations.getContacts,
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactsPage)

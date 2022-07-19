@@ -1,64 +1,60 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import authOperation from '../../../redux/auth/auth-operations'
 import s from '../Login/Login.module.css'
 
-export class Login extends Component {
-    state = {
-        email: '',
-        password: '',
+export default function Login() {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    const dispatch = useDispatch()
+    const onLogin = () => dispatch(authOperation.login({ email, password }))
+
+    const handleChangeEmail = ({ target: { value } }) => {
+        setEmail(value)
     }
 
-    handleChange = ({ target: { name, value } }) => {
-        this.setState({ [name]: value })
+    const handleChangePassword = ({ target: { value } }) => {
+        setPassword(value)
     }
 
-    handleSubmit = (e) => {
+    const resetState = () => {
+        setEmail('')
+        setPassword('')
+    }
+
+    const handleSubmit = (e) => {
         e.preventDefault()
 
-        this.props.onLogin(this.state)
-
-        this.setState({ email: '', password: '' })
+        onLogin()
+        resetState()
     }
 
-    render() {
-        const { email, password } = this.state
-        return (
-            <form
-                autocomplete="off"
-                className={s.form}
-                onSubmit={this.handleSubmit}
-            >
-                <label className={s.label}>
-                    Email
-                    <input
-                        className={s.input}
-                        name="email"
-                        type="email"
-                        value={email}
-                        onChange={this.handleChange}
-                    />
-                </label>
-                <label className={s.label}>
-                    Password
-                    <input
-                        className={s.input}
-                        name="password"
-                        type="password"
-                        value={password}
-                        onChange={this.handleChange}
-                    />
-                </label>
-                <button className={s.button} type="submit">
-                    Log In
-                </button>
-            </form>
-        )
-    }
+    return (
+        <form autocomplete="off" className={s.form} onSubmit={handleSubmit}>
+            <label className={s.label}>
+                Email
+                <input
+                    className={s.input}
+                    name="email"
+                    type="email"
+                    value={email}
+                    onChange={handleChangeEmail}
+                />
+            </label>
+            <label className={s.label}>
+                Password
+                <input
+                    className={s.input}
+                    name="password"
+                    type="password"
+                    value={password}
+                    onChange={handleChangePassword}
+                />
+            </label>
+            <button className={s.button} type="submit">
+                Log In
+            </button>
+        </form>
+    )
 }
-
-const mapDispatchToProps = {
-    onLogin: authOperation.login,
-}
-
-export default connect(null, mapDispatchToProps)(Login)

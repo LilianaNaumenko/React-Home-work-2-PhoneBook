@@ -3,18 +3,15 @@ import { connect } from 'react-redux'
 import { Route, Redirect } from 'react-router-dom'
 import authSelectors from '../../../redux/auth/auth-selectors'
 
-const PublicRoute = ({ component: Component, isLoginUser, ...routeProps }) => {
+const PublicRoute = ({ isLoginUser, children, ...routeProps }) => {
     return (
-        <Route
-            {...routeProps}
-            render={(props) =>
-                isLoginUser && routeProps.restricted ? (
-                    <Redirect to="/contacts" />
-                ) : (
-                    <Component {...props} />
-                )
-            }
-        />
+        <Route {...routeProps}>
+            {isLoginUser && routeProps.restricted ? (
+                <Redirect to="/contacts" />
+            ) : (
+                children
+            )}
+        </Route>
     )
 }
 

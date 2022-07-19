@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useCallback } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import s from '../Filter/Filter.module.css'
-import { connect } from 'react-redux'
 import contactsActions from '../../../redux/contacts/contacts-actions'
 import contactsSelectors from '../../../redux/contacts/contacts-selectors'
 
-function Filter({ value, onFindContacts }) {
+export default function Filter() {
+    const dispatch = useDispatch()
+    const value = useSelector(contactsSelectors.filterContacts)
+
+    const onFindContacts = useCallback(
+        (e) => dispatch(contactsActions.filterContacts(e.target.value)),
+        [dispatch]
+    )
+
     return (
         <div className={s.container}>
             <p>Find contacts by name</p>
@@ -22,14 +30,3 @@ function Filter({ value, onFindContacts }) {
         </div>
     )
 }
-
-const mapStateToProps = (state) => ({
-    value: contactsSelectors.filterContacts(state),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-    onFindContacts: (e) =>
-        dispatch(contactsActions.filterContacts(e.target.value)),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Filter)

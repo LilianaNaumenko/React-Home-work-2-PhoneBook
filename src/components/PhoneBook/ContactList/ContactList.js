@@ -1,12 +1,21 @@
-import React from 'react'
+import React, { useCallback } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import s from '../ContactList/ContactList.module.css'
 import slideTransition from './slideTransition.module.css'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import { connect } from 'react-redux'
 import contactsOperations from '../../../redux/contacts/contacts-operations'
 import contactsSelectors from '../../../redux/contacts/contacts-selectors'
 
-function ContactList({ filter, contacts, onContactsDelete }) {
+export default function ContactList() {
+    const dispatch = useDispatch()
+    const contacts = useSelector(contactsSelectors.getContacts)
+    const filter = useSelector(contactsSelectors.filterContacts)
+
+    const onContactsDelete = useCallback(
+        (id) => dispatch(contactsOperations.deleteContacts(id)),
+        [dispatch]
+    )
+
     function getFilteredContacts() {
         const normalize = filter.toLowerCase()
         const visibleContacts = contacts.filter((el) =>
@@ -41,13 +50,3 @@ function ContactList({ filter, contacts, onContactsDelete }) {
         </div>
     )
 }
-
-const mapStateToProps = (state) => ({
-    contacts: contactsSelectors.getContacts(state),
-    filter: contactsSelectors.filterContacts(state),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-    onContactsDelete: (id) => dispatch(contactsOperations.deleteContacts(id)),
-})
-export default connect(mapStateToProps, mapDispatchToProps)(ContactList)

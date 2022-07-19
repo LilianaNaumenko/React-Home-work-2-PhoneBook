@@ -26,6 +26,7 @@ const register = (credentials) => async (dispath) => {
 }
 
 const login = (credentials) => async (dispath) => {
+    console.log('login')
     dispath(authActions.loginRequest())
 
     try {
